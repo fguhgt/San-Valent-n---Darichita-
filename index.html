@@ -3,162 +3,122 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Oel ngati kameie 💙</title>
+<title>Para Mi Darichita 💙</title>
 
 <style>
 body{
     margin:0;
-    overflow:hidden;
-    background: radial-gradient(circle at bottom, #020111 0%, #000000 100%);
+    padding:0;
+    background: radial-gradient(circle at top, #0b1c2d, #000814);
+    color:#aeefff;
     font-family: 'Segoe UI', sans-serif;
     text-align:center;
-    color:#9dfcff;
-}
-
-canvas{
-    position:fixed;
-    top:0;
-    left:0;
-    z-index:-1;
+    overflow:hidden;
 }
 
 h1{
-    margin-top:100px;
-    font-size:24px;
-    padding:0 20px;
-    text-shadow:0 0 20px #00f7ff;
-}
-
-h2{
-    font-size:20px;
-    text-shadow:0 0 15px #00f7ff;
+    margin-top:80px;
+    font-size:28px;
 }
 
 button{
-    padding:14px 25px;
-    font-size:16px;
+    padding:12px 25px;
+    margin:15px;
+    font-size:18px;
     border:none;
-    border-radius:30px;
+    border-radius:25px;
     cursor:pointer;
-    position:absolute;
     transition:0.3s;
-    box-shadow:0 0 20px #00f7ff;
 }
 
-#yes{
-    background:#00f7ff;
-    color:#001f29;
-    left:25%;
-    top:60%;
+#activateBtn{
+    background:#00c3ff;
+    color:white;
 }
 
-#no{
-    background:#002b36;
-    color:#9dfcff;
-    left:55%;
-    top:60%;
+#yesBtn{
+    background:#00ffcc;
+    color:black;
+}
+
+#noBtn{
+    background:#ff4d6d;
+    color:white;
+    position:absolute;
 }
 
 #finalMessage{
     display:none;
-    margin-top:100px;
-    font-size:22px;
-    color:white;
-    text-shadow:0 0 25px #00f7ff;
+    margin-top:60px;
+    font-size:20px;
+    padding:20px;
+    animation:fadeIn 2s ease-in-out;
+}
+
+@keyframes fadeIn{
+    from{opacity:0;}
+    to{opacity:1;}
 }
 </style>
 </head>
 
 <body>
 
-<canvas id="universe"></canvas>
+<h1>🌺 Conectando con Eywa... 🌺</h1>
+<button id="activateBtn">Activar Conexión 💙</button>
 
-<h1>Desde que llegaste a mi vida todo brilla como Pandora ✨</h1>
-<h2>¿Quieres ser mi San Valentín, mi Darichita? 💙</h2>
-
-<button id="yes">SÍ, MA TSMUKE 💘</button>
-<button id="no">NO 💔</button>
-
-<div id="finalMessage">
-🌺 Oel ngati kameie 🌺<br><br>
-Sabía que dirías que sí… 💙<br><br>
-Te elijo en esta vida y en todas.<br><br>
-Feliz San Valentín mi Darichita pechocha.
+<div id="question" style="display:none;">
+    <h2>¿Quieres ser mi San Valentín?</h2>
+    <button id="yesBtn">Sí 💙</button>
+    <button id="noBtn">No</button>
 </div>
 
-<audio id="bgMusic" loop>
-<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_3d7c6c42f0.mp3?filename=ambient-110107.mp3" type="audio/mpeg">
+<div id="finalMessage">
+🌌 Oel ngati kameie 🌌 <br><br>
+
+Sabía que dirías que sí… 💙<br><br>
+
+Desde que llegaste a mi vida todo cambió.<br>
+Eres mi persona favorita en este mundo y en cualquier universo.<br><br>
+
+Te elijo hoy, mañana y en todas las vidas que existan.<br><br>
+
+Feliz Día de San Valentín mi Darichita pechocha 💫<br><br>
+
+Siempre tuyo.
+</div>
+
+<audio id="bgMusic">
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_115b9d9b1c.mp3?filename=beautiful-piano-ambient-110624.mp3" type="audio/mp3">
 </audio>
 
 <script>
-const canvas = document.getElementById("universe");
-const ctx = canvas.getContext("2d");
+const activateBtn = document.getElementById("activateBtn");
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+const finalMessage = document.getElementById("finalMessage");
+const question = document.getElementById("question");
+const bgMusic = document.getElementById("bgMusic");
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-let particles=[];
-
-class Particle{
-constructor(){
-this.x=Math.random()*canvas.width;
-this.y=Math.random()*canvas.height;
-this.size=Math.random()*2;
-this.speedY=Math.random()*0.5+0.2;
-}
-update(){
-this.y-=this.speedY;
-if(this.y<0){
-this.y=canvas.height;
-}
-}
-draw(){
-ctx.fillStyle="#00f7ff";
-ctx.shadowBlur=15;
-ctx.shadowColor="#00f7ff";
-ctx.beginPath();
-ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
-ctx.fill();
-}
-}
-
-function init(){
-for(let i=0;i<150;i++){
-particles.push(new Particle());
-}
-}
-
-function animate(){
-ctx.clearRect(0,0,canvas.width,canvas.height);
-particles.forEach(p=>{
-p.update();
-p.draw();
-});
-requestAnimationFrame(animate);
-}
-
-init();
-animate();
-
-const noBtn=document.getElementById("no");
-const yesBtn=document.getElementById("yes");
-const finalMessage=document.getElementById("finalMessage");
-const bgMusic=document.getElementById("bgMusic");
-
-noBtn.addEventListener("mouseover",()=>{
-const x=Math.random()*(window.innerWidth-100);
-const y=Math.random()*(window.innerHeight-100);
-noBtn.style.left=x+"px";
-noBtn.style.top=y+"px";
+activateBtn.addEventListener("click",()=>{
+    bgMusic.play().catch(()=>{});
+    activateBtn.style.display="none";
+    document.querySelector("h1").style.display="none";
+    question.style.display="block";
 });
 
 yesBtn.addEventListener("click",()=>{
-bgMusic.play();
-yesBtn.style.display="none";
-noBtn.style.display="none";
-document.querySelector("h1").style.display="none";
-document.querySelector("h2").style.display="none";
-finalMessage.style.display="block";
+    yesBtn.style.display="none";
+    noBtn.style.display="none";
+    question.style.display="none";
+    finalMessage.style.display="block";
+});
+
+noBtn.addEventListener("mouseover",()=>{
+    const x = Math.random() * (window.innerWidth - 100);
+    const y = Math.random() * (window.innerHeight - 100);
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
 });
 </script>
 
