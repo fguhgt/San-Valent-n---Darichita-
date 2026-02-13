@@ -24,19 +24,19 @@ canvas{
 
 h1{
     margin-top:100px;
-    font-size:28px;
+    font-size:24px;
     padding:0 20px;
     text-shadow:0 0 20px #00f7ff;
 }
 
 h2{
-    font-size:22px;
+    font-size:20px;
     text-shadow:0 0 15px #00f7ff;
 }
 
 button{
     padding:14px 25px;
-    font-size:18px;
+    font-size:16px;
     border:none;
     border-radius:30px;
     cursor:pointer;
@@ -48,7 +48,7 @@ button{
 #yes{
     background:#00f7ff;
     color:#001f29;
-    left:30%;
+    left:25%;
     top:60%;
 }
 
@@ -61,16 +61,10 @@ button{
 
 #finalMessage{
     display:none;
-    margin-top:120px;
-    font-size:26px;
+    margin-top:100px;
+    font-size:22px;
     color:white;
     text-shadow:0 0 25px #00f7ff;
-    animation: fadeIn 2s ease forwards;
-}
-
-@keyframes fadeIn{
-    from{opacity:0;}
-    to{opacity:1;}
 }
 </style>
 </head>
@@ -87,17 +81,13 @@ button{
 
 <div id="finalMessage">
 🌺 Oel ngati kameie 🌺<br><br>
-Te veo… y te elijo en esta vida y en todas 💙<br><br>
-Feliz San Valentín mi Darichita pechocha.<br><br>
-Siempre tuyo.
+Sabía que dirías que sí… 💙<br><br>
+Te elijo en esta vida y en todas.<br><br>
+Feliz San Valentín mi Darichita pechocha.
 </div>
 
 <audio id="bgMusic" loop>
 <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_3d7c6c42f0.mp3?filename=ambient-110107.mp3" type="audio/mpeg">
-</audio>
-
-<audio id="magicSound">
-<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_8b4f6b7b4d.mp3?filename=magic-110114.mp3" type="audio/mpeg">
 </audio>
 
 <script>
@@ -107,51 +97,44 @@ const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-let particles = [];
-let explosion = false;
+let particles=[];
 
 class Particle{
-    constructor(x,y){
-        this.x = x || Math.random()*canvas.width;
-        this.y = y || Math.random()*canvas.height;
-        this.size = Math.random()*2;
-        this.speedX = (Math.random()-0.5)*0.5;
-        this.speedY = Math.random()*0.7+0.3;
-    }
-    update(){
-        if(!explosion){
-            this.y -= this.speedY;
-            if(this.y < 0){
-                this.y = canvas.height;
-            }
-        } else {
-            this.x += this.speedX*10;
-            this.y += this.speedY*5;
-        }
-    }
-    draw(){
-        ctx.fillStyle="#00f7ff";
-        ctx.shadowBlur=15;
-        ctx.shadowColor="#00f7ff";
-        ctx.beginPath();
-        ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
-        ctx.fill();
-    }
+constructor(){
+this.x=Math.random()*canvas.width;
+this.y=Math.random()*canvas.height;
+this.size=Math.random()*2;
+this.speedY=Math.random()*0.5+0.2;
+}
+update(){
+this.y-=this.speedY;
+if(this.y<0){
+this.y=canvas.height;
+}
+}
+draw(){
+ctx.fillStyle="#00f7ff";
+ctx.shadowBlur=15;
+ctx.shadowColor="#00f7ff";
+ctx.beginPath();
+ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
+ctx.fill();
+}
 }
 
 function init(){
-    for(let i=0;i<200;i++){
-        particles.push(new Particle());
-    }
+for(let i=0;i<150;i++){
+particles.push(new Particle());
+}
 }
 
 function animate(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    particles.forEach(p=>{
-        p.update();
-        p.draw();
-    });
-    requestAnimationFrame(animate);
+ctx.clearRect(0,0,canvas.width,canvas.height);
+particles.forEach(p=>{
+p.update();
+p.draw();
+});
+requestAnimationFrame(animate);
 }
 
 init();
@@ -161,27 +144,21 @@ const noBtn=document.getElementById("no");
 const yesBtn=document.getElementById("yes");
 const finalMessage=document.getElementById("finalMessage");
 const bgMusic=document.getElementById("bgMusic");
-const magicSound=document.getElementById("magicSound");
-
-document.body.addEventListener("click",()=>{
-    bgMusic.play();
-});
 
 noBtn.addEventListener("mouseover",()=>{
-    const x=Math.random()*(window.innerWidth-120);
-    const y=Math.random()*(window.innerHeight-120);
-    noBtn.style.left=x+"px";
-    noBtn.style.top=y+"px";
+const x=Math.random()*(window.innerWidth-100);
+const y=Math.random()*(window.innerHeight-100);
+noBtn.style.left=x+"px";
+noBtn.style.top=y+"px";
 });
 
 yesBtn.addEventListener("click",()=>{
-    explosion=true;
-    magicSound.play();
-    yesBtn.style.display="none";
-    noBtn.style.display="none";
-    document.querySelector("h1").style.display="none";
-    document.querySelector("h2").style.display="none";
-    finalMessage.style.display="block";
+bgMusic.play();
+yesBtn.style.display="none";
+noBtn.style.display="none";
+document.querySelector("h1").style.display="none";
+document.querySelector("h2").style.display="none";
+finalMessage.style.display="block";
 });
 </script>
 
